@@ -80,12 +80,13 @@ namespace VisDbDig.Sql
             { (int) OleDbType.Char, "char" },
             { (int) OleDbType.Currency, "money" },
             { (int) OleDbType.DBTimeStamp, "datetime" },
+            { (int) OleDbType.Decimal, "decimal" },
             { (int) OleDbType.Double, "float" },
             { (int) OleDbType.Guid, "uniqueidentifier" },
             { (int) OleDbType.Integer, "identity" },
             { (int) OleDbType.LongVarBinary, "image" },
             { (int) OleDbType.LongVarChar, "text" },
-            { (int) OleDbType.Decimal, "decimal" },
+            { (int) OleDbType.Numeric, "decimal" }
             { (int) OleDbType.Single, "real" },
             { (int) OleDbType.SmallInt, "smallInt" },
             { (int) OleDbType.UnsignedTinyInt, "tinyInt" },
@@ -94,7 +95,6 @@ namespace VisDbDig.Sql
             { (int) OleDbType.Variant, "sql_variant" },
             { (int) OleDbType.VarWChar, "nvarchar" },
             { (int) OleDbType.WChar, "nchar" },
-            { (int) OleDbType.Numeric, "decimal" }
         };
     }
 } 
