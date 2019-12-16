@@ -8,22 +8,28 @@ using VisDbDig.Model;
 
 namespace VisDbDig.Sql
 {
+    // Export the schema of a SQL Server DB to JSON files
+    // See readme.md
     class Program
     {
+        // Usage
+        //    VisDbDig.sql.exe [OLEDB Connection String] [Output Directory]
+        // Example:
+        //    VisDbDig.sql.exe "Provider=sqloledb;Data Source=.;Initial Catalog=WideWorldImporters;Integrated Security=SSPI;" "C:\temp\WideWorldImporters"
+        //
         static void Main(string[] args)
         {
             string connStr = args[0];
             string outputPath = args[1];
 
             if (!Directory.Exists(outputPath))
-            {
                 Directory.CreateDirectory(outputPath);
-            }
 
             using (var oledb = new OleDbConnection(connStr))
             {
                 oledb.Open();
 
+                // Read the table definitions.
                 var tables = oledb.GetOleDbSchemaTable(OleDbSchemaGuid.Columns, null)
                     .Select()
                     .Where(col => col["TABLE_SCHEMA"].ToString() != "sys")
@@ -39,8 +45,7 @@ namespace VisDbDig.Sql
                         ).ToList()
                     );
 
-                Console.WriteLine(JsonConvert.SerializeObject(tables));
-
+                // Read the relationsips between tables.
                 var relationships = oledb.GetOleDbSchemaTable(OleDbSchemaGuid.Foreign_Keys, null)
                     .Select()
                     .Select(fk => new Relationship
@@ -52,12 +57,14 @@ namespace VisDbDig.Sql
 
                 var tableNames = tables.Keys.ToList();
 
+                // Write the files.
                 File.WriteAllText(Path.Combine(outputPath, "types.json"), JsonConvert.SerializeObject(tables));
                 File.WriteAllText(Path.Combine(outputPath, "relationships.json"), JsonConvert.SerializeObject(relationships));
                 File.WriteAllText(Path.Combine(outputPath, "typenames.json"), JsonConvert.SerializeObject(tableNames));
             }
         }
 
+        // Turn the OLE DB table defination into a SQL data type.
         private static string OleDbDataType(object oledbType, object maxLength)
         {
             string dataType = OleDbTypeNames[(int) oledbType];
