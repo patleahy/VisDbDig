@@ -76,7 +76,7 @@ This file is simply a list of the types in the types.json file. E.g.:
 [
     "Person",
     "Test",
-    "address"
+    "Address"
 ]
 ```
 
