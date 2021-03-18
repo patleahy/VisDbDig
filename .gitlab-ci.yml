@@ -8,9 +8,12 @@ build:
     - $Env:Path += ";C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
     - 'nuget restore' 
     - 'msbuild /property:Configuration=Release' 
+    - 
   artifacts:
     paths:
-      - 'TypeCsv\bin\Release\VisDbDig.exe'
+      - 'VisDbDig\bin\Release\VisDbDig.exe'
+      - 'VisDbDig.Sql\bin\Release\VisDbDig.Sql.exe'
+
   tags : [windows]
 
 release:
