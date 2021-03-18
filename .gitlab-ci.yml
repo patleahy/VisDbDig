@@ -1,0 +1,24 @@
+stages:
+  - build
+  - release
+
+build:
+  stage: build
+  script:
+    - $Env:Path += ";C:\Program Files (x86)\Microsoft Visual Studio\2019\BuildTools\MSBuild\Current\Bin"
+    - 'nuget restore' 
+    - 'msbuild /property:Configuration=Release' 
+  artifacts:
+    paths:
+      - 'TypeCsv\bin\Release\VisDbDig.exe'
+  tags : [windows]
+
+release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  script:
+    - |
+      release-cli create --name "Release $CI_COMMIT_TAG" --tag-name $CI_COMMIT_TAG \
+        --assets-link "{\"name\":\"Executable file (VisDbDig.exe)\",\"url\":\"https://gitlab.com/patleahy/VisDbDig/-/jobs/artifacts/master/file/VisDbDig/bin/Release/VisDbDig.exe?job=build\"}"
+  rules:
+    - if: $CI_COMMIT_TAG
