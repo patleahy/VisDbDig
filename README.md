@@ -2,6 +2,10 @@
 
 Tool to create Visio diagram of a database schema. This works in two parts. One command (VisDbDig.sql.exe) exports a SQL Server database schema to a set of JSON files. The second command (VisDbDig.exe) reads those files and generates a Visio diagram. This separation allows for creating other tools which will generate JSON files in the same format from other databases, APIs, documents, etc. To support doing this the types used to serialize the JSON files are in a separate library (VisDbDig.Model.dll).
 
+Here is part of an example diagram generated from the Microsoft Access example Northwinds database.
+
+![Example Diagram](docs/eg.png)
+
 ## VisDbDig.sql.exe
 
 Export the schema of a SQL Server DB to JSON files:
