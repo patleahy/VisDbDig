@@ -4,7 +4,7 @@ Tool to create Visio diagram of a database schema. This works in two parts. One 
 
 Here is part of an example diagram generated from the Microsoft Access example Northwinds database.
 
-![Example Diagram](docs/eg.png)
+![Example Diagram](img/eg.png)
 
 ## VisDbDig.sql.exe
 
